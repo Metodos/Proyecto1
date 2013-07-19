@@ -25,3 +25,4 @@ def f3(x):
     
 def evalF(name, x):
     return eval(name+"("+str(x)+")")
+    

@@ -13,15 +13,12 @@ def biseccion(function, a, b, decimal):
     m=(a+b)/2.0
 
     if (func.evalF(function, m)==0):
-        print 'La raiz de f(x) es: ',m
         val=False
     else:
         val=True
         
     i=1
     while val:
-        
-        print 'Iteracion ',i,': ',m, 'f(m): ', func.evalF(function, m)
         
         if utilities.checkRange(function, a, m):
             b=m
@@ -34,10 +31,7 @@ def biseccion(function, a, b, decimal):
         #if abs(f(polynomio, m))<cero and utilities.decimalCheck(decimal, prev_m, m):
             val=False
             
-        i=i+1
-    
-    print 'La aproximacion a la raiz es: ',m, 'f(m): ', func.evalF(function, m) 
-    
+        i=i+1    
     return m
     
 def falsaposicion(function, a, b, decimal):
@@ -50,9 +44,7 @@ def falsaposicion(function, a, b, decimal):
     xr = _fpformula(function, xl, xu)
     
     i = 1    
-    
-    print 'Iteracion ',i,': ',xr
-        
+            
     if utilities.checkRange(function, xl, xr):
         xu = xr
     else:
@@ -62,8 +54,6 @@ def falsaposicion(function, a, b, decimal):
         
         prev_xr = xr
         xr = _fpformula(function, xl, xu)
-            
-        print 'Iteracion ',i,': ',xr
         
         if utilities.checkRange(function, xl, xr):
             xu = xr
@@ -81,36 +71,47 @@ def _fpformula(function, xl, xu):
     
     
 def recorrida(function,a,b,decimal):
-    tolerancia=1/(10^decimal)    
+    tolerancia=1.0/(10.0**decimal)  
     low=float(a)
     up=float(b)
-    intervalo=(up-low)/10
+    intervalo=abs((up-low)/10)
     while (intervalo>tolerancia):
+        intervalo=abs((up-low)/10)
         xo=low
         xf=low+intervalo
         while(xo<up):
-            xo=xf
-            xf=xf+intervalo
-            if(utilities.checkRange(function,xf,xo)):
+            if(utilities.checkRange(function, xf, xo)):
                 low=xo
                 up=xf
                 intervalo=(up-low)/10
                 break
+            xo=xf
+            xf=xf+intervalo
     return (low+up)/2
 
 def newtonRaphson(function, funcPrime, x, decimal):
         
     val = True
     
+    """
+    i = 0
+    diverging = False
+    """
+    
     while(val):
         prev_x = x
-        x = x - (func.evalF(function, x)/func.evalF(funcPrime, x))
+        x = x - (func.evalF(function, x)/func.evalF(funcPrime, x))      
         
-        print prev_x
-        print x        
-        
+        """        
+        if(x-prev_x < 0):
+            if(diverging):
+                i = i+1
+            else:
+                i=0
+                diverging=True
+        """
+    
         if(utilities.decimalCheck(decimal, prev_x, x)):
             val = False
     
     return x
-        
