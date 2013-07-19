@@ -69,7 +69,7 @@ def falsaposicion(function, a, b, decimal):
 def _fpformula(function, xl, xu):
     return ((func.evalF(function, xu)*(xl-xu))/(func.evalF(function, xu)-func.evalF(function, xl))) + xu
     
-    
+#metodo: Diego
 def recorrida(function,a,b,decimal):
     tolerancia=1.0/(10.0**decimal)  
     low=float(a)
@@ -92,6 +92,7 @@ def recorrida(function,a,b,decimal):
 def newtonRaphson(function, funcPrime, x, decimal):
         
     val = True
+    x = float(x)
     
     """
     i = 0
@@ -115,3 +116,32 @@ def newtonRaphson(function, funcPrime, x, decimal):
             val = False
     
     return x
+    
+def secant(function, x0, x1, decimal):
+    
+    val = True
+    x0 = float(x0)
+    x1 = float(x1)
+    
+    """
+    i = 0
+    diverging = False
+    """
+    
+    while(val):
+        prev_x1 = x1
+        x1 = x1 - ((func.evalF(function, x1)*(x0-x1))/(func.evalF(function, x0)-func.evalF(function, x1)))     
+        x0 = prev_x1
+        """        
+        if(x-prev_x < 0):
+            if(diverging):
+                i = i+1
+            else:
+                i=0
+                diverging=True
+        """
+    
+        if(utilities.decimalCheck(decimal, x0, x1)):
+            val = False
+    
+    return x1
