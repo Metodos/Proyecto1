@@ -23,3 +23,7 @@ print methods_lib.newtonRaphson("f0", "f1", 0, 5)
 
 print "\nSecant Method -> f0(x)"
 print methods_lib.secant("f0", 1, 5, 5)
+
+print "\nSteffensen Method -> f0(x)"
+print methods_lib.steffensen("f0", 0, 5)
+

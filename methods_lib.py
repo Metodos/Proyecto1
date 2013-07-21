@@ -145,3 +145,18 @@ def secant(function, x0, x1, decimal):
             val = False
     
     return x1
+    
+def steffensen(function, xn, decimal):
+    val = True
+    xn = float(xn)
+    
+    while(val):
+        prev_xn = xn
+        param = xn + func.evalF(function, xn)
+        xn = xn - ((func.evalF(function, xn))**2)/(func.evalF(function, param)-func.evalF(function, xn))
+        
+        if(utilities.decimalCheck(decimal, prev_xn, xn)):
+            val = False
+    
+    return xn
+    
